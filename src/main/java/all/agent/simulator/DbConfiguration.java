@@ -57,6 +57,7 @@ public class DbConfiguration
         return new HikariDataSource(config);
     }
 
+    @Bean
     IDataRepository initAgent(@Qualifier(value = "deliveryDataSource") DataSource cdrDataSource)
     {
         return new DataRepositoryBean(cdrDataSource);
