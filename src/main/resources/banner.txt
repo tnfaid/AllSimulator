@@ -1,0 +1,5 @@
+${Ansi.RED}   .d88b. 888 8b   d8 8    8 8       db    88888 .d88b. 888b.       db    8    8          db    .d88b  8888 8b  8 88888
+${Ansi.RED}   YPwww.  8  8YbmdP8 8    8 8      dPYb     8   8P  Y8 8  .8      dPYb   8    8         dPYb   8P www 8www 8Ybm8   8
+${Ansi.RED}       d8  8  8  "  8 8b..d8 8     dPwwYb    8   8b  d8 8wwK'     dPwwYb  8    8        dPwwYb  8b  d8 8    8  "8   8
+${Ansi.RED}   `Y88P' 888 8     8 `Y88P' 8888 dP    Yb   8   `Y88P' 8  Yb    dP    Yb 8888 8888    dP    Yb `Y88P' 8888 8   8   8
+${Ansi.GREEN}Tnfaid and Solid Sms Team
