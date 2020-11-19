@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@ConditionalOnExpression("${my.property:true}")
+@ConditionalOnExpression("${my.property:false}")
 public class SprintController {
 
     Logger log = LoggerFactory.getLogger(SprintController.class);
