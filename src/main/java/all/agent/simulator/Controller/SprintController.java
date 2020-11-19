@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,19 +18,21 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping(SprintController.BASE_PATH)
+@ConditionalOnExpression("${my.property:true}")
 public class SprintController {
 
     Logger log = LoggerFactory.getLogger(SprintController.class);
-    public static final String BASE_PATH = "/api/msg.php";
 
     @Autowired
     IDataRepository repository;
 
+    @Value("${my.agent.name}")
+    String agentName;
+
     @Value("${acknowledge.status.message}")
     String acknowledge;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, value = "${base.path.request}", produces = MediaType.TEXT_XML_VALUE)
     public ResponseEntity<String> get(@RequestParam("u") String username,
                                       @RequestParam("p") String password,
                                       @RequestParam("d") String destination,
@@ -44,7 +47,7 @@ public class SprintController {
                 password,
                 destination,
                 "",
-                "Sprint",
+                agentName,
                 Message,
                 "0");
 
