@@ -7,8 +7,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,20 +18,27 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(TelkomselController.BASE_PATH)
+@ConditionalOnExpression("${my.property:true}")
 public class TelkomselController {
-
-    public static final String BASE_PATH = "/cp/smsbulk/submit.jsp";
 
     @Value("${acknowledge.status.message}")
     String ackstatus;
+
+    @Value("${my.agent.name}")
+    String agentName;
+
+    @Value("${url.delivery.status}")
+    String urlDelivery;
+
+    @Value("${delivery.status.message}")
+    String deliveryStatus;
 
     Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     IDataRepository repository;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, value = "${base.path.request}", produces = MediaType.TEXT_XML_VALUE)
     public ResponseEntity<String> get(@RequestParam("cp_name") String username,
                                       @RequestParam("pwd") String password,
                                       @RequestParam("sid") String sender,
@@ -42,7 +51,10 @@ public class TelkomselController {
         messageData.setMsisdn_sender(sender);
         messageData.setMsisdn(destination);
         messageData.setAgentMessageId(randomSessionID());
-
+        messageData.setAgent_sender(agentName);
+        messageData.setDr_url(urlDelivery);
+        messageData.setDeliveryStatus(deliveryStatus);
+        messageData.setExecuted("0");
         log.info("Message Data :{}", messageData);
 
         HttpHeaders headers = new HttpHeaders();

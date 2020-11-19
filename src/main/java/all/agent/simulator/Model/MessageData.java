@@ -15,6 +15,18 @@ public class MessageData {
     private String dr_url;
     private String executed;
 
+    public String getDeliveryStatus()
+    {
+        return deliveryStatus;
+    }
+
+    public void setDeliveryStatus( String deliveryStatus )
+    {
+        this.deliveryStatus = deliveryStatus;
+    }
+
+    private String deliveryStatus;
+
     public MessageData() {
 
     }
@@ -36,6 +48,7 @@ public class MessageData {
         this.agent_sender = agent_sender;
         this.dr_url = dr_url;
         this.executed = executed;
+        this.deliveryStatus = getDeliveryStatus();
     }
 
     public String getExecuted()
