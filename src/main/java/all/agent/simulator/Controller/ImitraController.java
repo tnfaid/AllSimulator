@@ -26,8 +26,9 @@ import java.nio.charset.Charset;
 import static java.net.URLDecoder.decode;
 
 @RestController
-@ConditionalOnExpression("${my.property:true}")
-public class ImitraController {
+@ConditionalOnExpression("${my.property:false}")
+public class ImitraController
+{
 
     @Value("${acknowledge.status.message}")
     String ackstatus;

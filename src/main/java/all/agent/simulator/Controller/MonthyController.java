@@ -7,7 +7,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,21 +17,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(MonthyController.BASE_PATH)
-public class MonthyController {
-
-    @Autowired
-    IDataRepository repository;
+@ConditionalOnExpression("${my.property:true}")
+public class MonthyController
+{
 
     @Value("${acknowledge.status.message}")
     String status;
 
+    @Value("${my.agent.name}")
+    String agentName;
+
+    @Autowired
+    IDataRepository repository;
+
     @Value("${url.delivery.status}")
     String url;
 
-    static final String BASE_PATH = "/Home/SendSMS";
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, value = "${base.path.request}", produces = MediaType.TEXT_XML_VALUE)
     public ResponseEntity<String> post(@RequestParam("username") String username,
                                        @RequestParam("password") String password,
                                        @RequestParam("source") String sender,
@@ -46,7 +51,7 @@ public class MonthyController {
                 password,
                 destination,
                 "",
-                "Monthy",
+                agentName,
                 url,
                 "0");
 
