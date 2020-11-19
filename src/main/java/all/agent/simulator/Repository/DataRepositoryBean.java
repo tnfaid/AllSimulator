@@ -42,7 +42,7 @@ public class DataRepositoryBean implements IDataRepository
                 messageData.getMsisdn_sender(),
                 messageData.getAgent_sender(),
                 messageData.getDr_url(),
-                messageData.getMessage()
+                messageData.getExecuted()
         };
 
         return deliveryJdbcTemplate.update(INSERT_DR_TABLE, param);

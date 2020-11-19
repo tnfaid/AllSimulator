@@ -26,12 +26,14 @@ import java.nio.charset.Charset;
 import static java.net.URLDecoder.decode;
 
 @RestController
-@RequestMapping("${base.path.request}")
 @ConditionalOnExpression("${my.property:true}")
 public class ImitraController {
 
     @Value("${acknowledge.status.message}")
     String ackstatus;
+
+    @Value("${my.agent.name}")
+    String agentName;
 
     Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -56,7 +58,7 @@ public class ImitraController {
                 messageEntity.getPassword(),
                 messageEntity.getMsisdn(),
                 messageEntity.getMsisdn_sender(),
-                "Imitra - Andalabs",
+                agentName,
                 messageEntity.getDeliveryUrl(),
                 "0");
         log.info("Message Data : {}", messageData);

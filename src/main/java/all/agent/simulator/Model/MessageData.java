@@ -13,6 +13,7 @@ public class MessageData {
     private String message;
     private String msg_type;
     private String dr_url;
+    private String executed;
 
     public MessageData() {
 
@@ -24,8 +25,8 @@ public class MessageData {
                        String msisdn,
                        String msisdn_sender,
                        String agent_sender,
-                       String message,
-                       String dr_url)
+                       String dr_url,
+                       String executed)
     {
         this.agentMessageId = agentMessageId;
         this.username = usernamme;
@@ -33,8 +34,18 @@ public class MessageData {
         this.msisdn = msisdn;
         this.msisdn_sender = msisdn_sender;
         this.agent_sender = agent_sender;
-        this.message = message;
         this.dr_url = dr_url;
+        this.executed = executed;
+    }
+
+    public String getExecuted()
+    {
+        return executed;
+    }
+
+    public void setExecuted( String executed )
+    {
+        this.executed = executed;
     }
 
     public String getAgent_sender() {
